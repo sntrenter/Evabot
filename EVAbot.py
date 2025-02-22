@@ -1,6 +1,7 @@
 import asyncio
 from twikit import Client
 from account_info import username, password, email
+from GetImages import Videos, Video
 
 USERNAME = username
 EMAIL = email
