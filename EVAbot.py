@@ -1,7 +1,10 @@
 import asyncio
 from twikit import Client
 from account_info import username, password, email
-from GetImages import Videos, Video
+from GetImages import Videos, Video, SAVE_FRAMES
+import shutil
+import os
+SAVE_FRAMES = True
 
 USERNAME = username
 EMAIL = email
@@ -17,14 +20,23 @@ async def main():
         password=PASSWORD,
         cookies_file='cookies.json'
     )
-
     ############################
-    media_ids = [
-        await client.upload_media("test_images/1.jpg"),
-        await client.upload_media("test_images/2.PNG"),
-        await client.upload_media("test_images/3.jpg"),
-        await client.upload_media("test_images/4.jpg"),
-    ]
-    await client.create_tweet("maymay",media_ids=media_ids)
+
+    try:
+        shutil.rmtree("frames")
+    except:
+        pass
+
+    os.mkdir("frames")
+    Vids = Videos("Videos")
+    Vids.get_random_frames(4)
+    ############################
+    #media_ids = [
+    #    await client.upload_media("test_images/1.jpg"),
+    #    await client.upload_media("test_images/2.PNG"),
+    #    await client.upload_media("test_images/3.jpg"),
+    #    await client.upload_media("test_images/4.jpg"),
+    #]
+    await client.create_tweet("this is a test")#,media_ids=media_ids)
 
 asyncio.run(main())
